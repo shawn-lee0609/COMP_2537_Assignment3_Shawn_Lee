@@ -103,17 +103,7 @@ function startTimer() {
 
 // —— Hint: 모든 카드 1초간 오픈 ——
 hintBtn.addEventListener('click', () => {
-  // 게임이 시작되지 않았거나, 보드 잠금(lock) 중이거나, 힌트 다 썼으면 무시
-  if (!gameStarted || lockBoard || hintsUsed >= hintLimit) return;
-
-  // 힌트 사용 처리
-  hintsUsed++;
-  updateHintButton();
-  if (hintsUsed >= hintLimit) {
-    hintBtn.disabled = true;
-  }
-
-  // ↓ 기존 “모든 카드 1초간 오픈” 로직 ↓
+  if (!gameStarted || lockBoard) return;
   const cards = Array.from(document.querySelectorAll('.card'));
   cards.forEach(c => c.classList.add('flip'));
   lockBoard = true;
@@ -126,7 +116,6 @@ hintBtn.addEventListener('click', () => {
     lockBoard = false;
   }, 1000);
 });
-
 
 function updateHintButton() {
   hintBtn.textContent = `Hint (${hintLimit - hintsUsed})`;
@@ -162,7 +151,7 @@ async function startGame() {
   updateHintButton();
 
   // 그리드 열 수 설정
-  cardContainer.style.gridTemplateColumns = `repeat(${cols}, minmax(100px,1fr))`;
+  cardContainer.style.gridTemplateColumns = `repeat(${cols}, minmax(0,1fr))`;
 
   // 카드 데이터 생성
   await populateCards(pairsToWin);
