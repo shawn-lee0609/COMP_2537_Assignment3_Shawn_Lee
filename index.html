@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Pokémon Memory Game</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            game: ['"Press Start 2P"', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Retro 게임 느낌 폰트 -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- 카드 뒤집기·테마용 CSS -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="theme-classic font-game min-h-screen py-8">
+
+  <div class="max-w-4xl mx-auto px-4">
+
+    <!-- 제목 -->
+    <h1 class="text-3xl md:text-4xl text-center mb-6">Pokémon Memory</h1>
+
+    <!-- 스탯 -->
+    <div id="stats" class="flex flex-wrap justify-center gap-4 mb-6 text-lg">
+      <div>Time: <span id="time">00:00</span></div>
+      <div>Clicks: <span id="clickCount">0</span></div>
+      <div>Matched: <span id="pairsMatched">0</span></div>
+      <div>To Win: <span id="pairsToWin">3</span></div>
+    </div>
+
+    <!-- 컨트롤 -->
+    <div id="controls" class="flex flex-wrap justify-center items-center gap-4 mb-8">
+      <div class="flex items-center gap-2">
+        <label for="difficultySelect">Difficulty:</label>
+        <select id="difficultySelect" class="border rounded px-2 py-1">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-2">
+        <label for="themeSelect">Theme:</label>
+        <select id="themeSelect" class="border rounded px-2 py-1">
+          <option value="classic" selected>Classic</option>
+          <option value="dark">Dark</option>
+          <option value="forest">Forest</option>
+        </select>
+      </div>
+      <button id="startButton" class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-2 rounded">
+        Start
+      </button>
+      <button id="resetButton" class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-4 py-2 rounded" disabled>
+        Reset
+      </button>
+      <button id="hintButton" class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold px-4 py-2 rounded" disabled>
+        Hint
+      </button>
+    </div>
+
+    <!-- 카드 격자 -->
+    <div class="card-container grid gap-4 justify-items-center"></div>
+
+    <!-- 메시지 -->
+    <div id="winMessage" class="hidden text-center text-2xl text-green-700 font-bold mt-8">
+      🎉 You Win! 🎉
+    </div>
+    <div id="gameOver" class="hidden text-center text-2xl text-red-600 font-bold mt-8">
+      ⏰ Game Over! Time's up! ⏰
+    </div>
+
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+/* style.css */
+
+/* — CSS 변수 & 테마 정의 — */
+:root {
+  /* 컬러 팔레트 */
+  --bg-dark:    #0f172a;
+  --accent:     #fbbf24;
+  --accent-hover: #eab308;
+  --text-light: #f8fafc;
+  --shadow:     rgba(0, 0, 0, 0.25);
+
+  /* 폰트 스케일 */
+  --font-base:      16px;
+  --font-heading:   1.75rem;
+  --font-body:      1rem;
+  --line-height:    1.5;
+}
+
+html {
+  font-size: var(--font-base);
+}
+
+body.theme-classic {
+  --bg-color: #eef2f7;
+  --text-color: #333;
+  --card-back: url('back.webp');
+}
+
+body.theme-dark {
+  --bg-color: #2b2b2b;
+  --text-color: #ffffff;         /* 순백으로 대비 극대화 */
+  --card-back: url('back_dark.png');
+}
+
+body.theme-forest {
+  --bg-color: #e3f5e1;
+  --text-color: #2e4d25;
+  --card-back: url('back_forest.png');
+}
+
+/* — 전체 페이지 배경·텍스트 색상 적용 — */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* — 컨트롤, 스탯, 헤더, 메시지 텍스트 색 강제 — */
+#stats,
+#controls,
+h1,
+.message {
+  color: var(--text-color) !important;
+}
+
+/* — 컨트롤 내부 셀렉트 박스 스타일 — */
+#controls select {
+  background-color: var(--bg-color);
+  color: var(--text-color) !important;
+  border: 1px solid var(--text-color);
+}
+
+/* — 컨트롤 버튼 텍스트 색 강제 — */
+#controls button {
+  color: var(--text-color) !important;
+}
+
+.card-container {
+  display: grid;
+  /* 자동으로 크기에 맞춰 120px 이상인 셀을 채우는 레이아웃 */
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+
+  background-color: var(--bg-medium);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: background-color 0.3s ease;
+}
+.card-container:empty {
+  /* 게임 시작 전엔 숨김 */
+  display: none;
+}
+
+/* — 카드 셀 기본 스타일 — */
+.card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  perspective: 800px;
+  cursor: pointer;
+}
+
+/* — 카드 이미지 (앞/뒤) — */
+.card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+}
+
+.card .front {
+  transform: rotateY(180deg);
+}
+
+.card .back {
+  transform: rotateY(0deg);
+  background: var(--card-back) center/cover no-repeat;
+}
+
+.card.flip .front {
+  transform: rotateY(0deg);
+}
+
+.card.flip .back {
+  transform: rotateY(-180deg);
+}
+
+/* — 매칭 완료된 카드 스타일 — */
+.card.matched {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/*───────────────────────────*/
+/* 4. 카드 개별 스타일 */
+/*───────────────────────────*/
+.game-card {
+  background-color: var(--bg-dark);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px var(--shadow);
+}
+
+/* 카드 내부 3D 뒤집기 유지 */
+.card-inner {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+.game-card.flip .card-inner {
+  transform: rotateY(180deg);
+}
+.card-face {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  backface-visibility: hidden;
+}
+.front { transform: rotateY(180deg); }
+.back  { transform: rotateY(0deg); }
+
+/*───────────────────────────*/
+/* 5. 버튼 & 셀렉트 박스 */
+/*───────────────────────────*/
+button, select {
+  font-size: var(--font-body);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--accent);
+  color: var(--bg-dark);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover, select:hover {
+  background-color: var(--accent-hover);
+}
+
+/* 힌트 버튼 강조 */
+.hint-button {
+  background-color: var(--accent);
+  color: var(--bg-dark);
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  box-shadow: 0 2px 6px var(--shadow);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.hint-button:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* — 승리/게임오버 메시지 — */
+.message {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
