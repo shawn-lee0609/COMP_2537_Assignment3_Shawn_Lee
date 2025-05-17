@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,23 +20,23 @@
     }
   </script>
 
-  <!-- Retro 게임 느낌 폰트 -->
+  <!-- Retro game-style font -->
   <link
     href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
     rel="stylesheet"
   />
 
-  <!-- 카드 뒤집기·테마용 CSS -->
+  <!-- CSS for card flipping & themes -->
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body class="theme-classic font-game min-h-screen py-8">
 
   <div class="max-w-screen-xl mx-auto px-4">
 
-    <!-- 제목 -->
+    <!-- Title -->
     <h1 class="text-3xl md:text-4xl text-center mb-6">Pokémon Memory</h1>
 
-    <!-- 스탯 -->
+    <!-- Stats -->
     <div id="stats" class="flex flex-wrap justify-center gap-4 mb-6 text-lg">
       <div>Time: <span id="time">00:00</span></div>
       <div>Clicks: <span id="clickCount">0</span></div>
@@ -43,7 +44,7 @@
       <div>To Win: <span id="pairsToWin">3</span></div>
     </div>
 
-    <!-- 컨트롤 -->
+    <!-- Controls -->
     <div id="controls" class="flex flex-wrap justify-center items-center gap-4 mb-8">
       <div class="flex items-center gap-2">
         <label for="difficultySelect">Difficulty:</label>
@@ -72,10 +73,10 @@
       </button>
     </div>
 
-    <!-- 카드 격자 -->
+    <!-- Card grid -->
     <div class="card-container grid gap-4 justify-items-center"></div>
 
-    <!-- 메시지 -->
+    <!-- Messages -->
     <div id="winMessage" class="hidden text-center text-2xl text-green-700 font-bold mt-8">
       🎉 You Win! 🎉
     </div>

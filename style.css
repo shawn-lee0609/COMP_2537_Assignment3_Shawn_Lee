@@ -1,15 +1,15 @@
 /* style.css */
 
-/* — CSS 변수 & 테마 정의 — */
+/* — CSS variables & theme definitions — */
 :root {
-  /* 컬러 팔레트 */
+  /* Color palette */
   --bg-dark:    #0f172a;
   --accent:     #fbbf24;
   --accent-hover: #eab308;
   --text-light: #f8fafc;
   --shadow:     rgba(0, 0, 0, 0.25);
 
-  /* 폰트 스케일 */
+  /* Font scale */
   --font-base:      16px;
   --font-heading:   1.75rem;
   --font-body:      1rem;
@@ -28,7 +28,7 @@ body.theme-classic {
 
 body.theme-dark {
   --bg-color: #2b2b2b;
-  --text-color: #ffffff;         /* 순백으로 대비 극대화 */
+  --text-color: #ffffff;         /* High-contrast white text */
   --card-back: url('back_dark.png');
 }
 
@@ -38,13 +38,13 @@ body.theme-forest {
   --card-back: url('back_forest.png');
 }
 
-/* — 전체 페이지 배경·텍스트 색상 적용 — */
+/* — Apply background & text colors to entire page — */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
 }
 
-/* — 컨트롤, 스탯, 헤더, 메시지 텍스트 색 강제 — */
+/* — Force text color for controls, stats, headers, messages — */
 #stats,
 #controls,
 h1,
@@ -52,21 +52,21 @@ h1,
   color: var(--text-color) !important;
 }
 
-/* — 컨트롤 내부 셀렉트 박스 스타일 — */
+/* — Style select boxes in controls — */
 #controls select {
   background-color: var(--bg-color);
   color: var(--text-color) !important;
   border: 1px solid var(--text-color);
 }
 
-/* — 컨트롤 버튼 텍스트 색 강제 — */
+/* — Force button text color in controls — */
 #controls button {
   color: var(--text-color) !important;
 }
 
 .card-container {
   display: grid;
-  /* 자동으로 크기에 맞춰 120px 이상인 셀을 채우는 레이아웃 */
+  /* Layout: auto-fill cells with a minimum size of 120px */
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 1rem;
 
@@ -77,11 +77,11 @@ h1,
   transition: background-color 0.3s ease;
 }
 .card-container:empty {
-  /* 게임 시작 전엔 숨김 */
+  /* Hidden before the game starts */
   display: none;
 }
 
-/* — 카드 셀 기본 스타일 — */
+/* — Basic card cell styles — */
 .card {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -90,7 +90,7 @@ h1,
   cursor: pointer;
 }
 
-/* — 카드 이미지 (앞/뒤) — */
+/* — Card images (front/back) — */
 .card img {
   position: absolute;
   top: 0;
@@ -120,14 +120,14 @@ h1,
   transform: rotateY(-180deg);
 }
 
-/* — 매칭 완료된 카드 스타일 — */
+/* — Styles for matched cards — */
 .card.matched {
   pointer-events: none;
   opacity: 0.6;
 }
 
 /*───────────────────────────*/
-/* 4. 카드 개별 스타일 */
+/* 4. Individual card styles */
 /*───────────────────────────*/
 .game-card {
   background-color: var(--bg-dark);
@@ -142,7 +142,7 @@ h1,
   box-shadow: 0 6px 14px var(--shadow);
 }
 
-/* 카드 내부 3D 뒤집기 유지 */
+/* Maintain 3D flip inside the card */
 .card-inner {
   position: relative;
   width: 100%;
@@ -163,7 +163,7 @@ h1,
 .back  { transform: rotateY(0deg); }
 
 /*───────────────────────────*/
-/* 5. 버튼 & 셀렉트 박스 */
+/* 5. Buttons & select boxes */
 /*───────────────────────────*/
 button, select {
   font-size: var(--font-body);
@@ -179,7 +179,7 @@ button:hover, select:hover {
   background-color: var(--accent-hover);
 }
 
-/* 힌트 버튼 강조 */
+/* Emphasize hint button */
 .hint-button {
   background-color: var(--accent);
   color: var(--bg-dark);
@@ -194,7 +194,7 @@ button:hover, select:hover {
   transform: translateY(-2px);
 }
 
-/* — 승리/게임오버 메시지 — */
+/* — Win/Game Over messages — */
 .message {
   font-size: 1.5rem;
   margin-top: 1.5rem;

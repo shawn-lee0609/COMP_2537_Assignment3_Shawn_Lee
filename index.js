@@ -1,4 +1,6 @@
-// —— DOM 참조 ——
+// index.js
+
+// —— DOM references ——
 const difficultySelect = document.getElementById('difficultySelect');
 const themeSelect      = document.getElementById('themeSelect');
 const startBtn         = document.getElementById('startButton');
@@ -12,14 +14,14 @@ const cardContainer    = document.querySelector('.card-container');
 const winMsg           = document.getElementById('winMessage');
 const overMsg          = document.getElementById('gameOver');
 
-// —— 난이도별 설정 ——
+// —— Difficulty settings ——
 const levelConfig = {
   easy:   { rows: 4, cols: 4, time: 20,  hints: 1 },
   medium: { rows: 6, cols: 6, time: 60,  hints: 2 },
   hard:   { rows: 8, cols: 8, time: 90, hints: 3 }
 };
 
-// —— 뒷면 이미지 매핑 ——
+// —— Back-image mapping ——
 const backImages = {
   classic: 'back.webp',
   dark:    'back.webp',
@@ -27,18 +29,18 @@ const backImages = {
 };
 let currentTheme = themeSelect.value;
 
-// —— 상태 변수 ——
+// —— State variables ——
 let clickCount, pairsMatched, pairsToWin, timeLeft;
 let flippedCards, lockBoard, timerInterval, gameStarted;
 let hintsUsed  = 0;
 let hintLimit  = 0;
 
-// —— 테마 적용 함수 ——
+// —— Theme application function ——
 function applyTheme(theme) {
   currentTheme = theme;
   document.body.classList.remove('theme-classic','theme-dark','theme-forest');
   document.body.classList.add(`theme-${theme}`);
-  // 기존 카드 뒷면도 교체
+  // also swap out existing card backs
   document.querySelectorAll('.card .back').forEach(img => {
     img.src = backImages[theme];
   });
@@ -46,7 +48,7 @@ function applyTheme(theme) {
 applyTheme(currentTheme);
 themeSelect.addEventListener('change', e => applyTheme(e.target.value));
 
-// —— 카드 클릭 핸들러 ——
+// —— Card click handler ——
 function handleCardClick() {
   if (!gameStarted || lockBoard) return;
   if (this.classList.contains('flip') || this.classList.contains('matched')) return;
@@ -60,7 +62,7 @@ function handleCardClick() {
   if (flippedCards.length === 2) checkMatch();
 }
 
-// —— 매치 검사 ——
+// —— Match checking ——
 function checkMatch() {
   const [c1, c2] = flippedCards;
   const isMatch = c1.querySelector('.front').src === c2.querySelector('.front').src;
@@ -88,7 +90,7 @@ function resetBoard() {
   lockBoard = false;
 }
 
-// —— 타이머 시작 ——
+// —— Start timer ——
 function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
@@ -101,9 +103,20 @@ function startTimer() {
   }, 1000);
 }
 
-// —— Hint: 모든 카드 1초간 오픈 ——
+// —— Hint: reveal all cards for 1 second ——
 hintBtn.addEventListener('click', () => {
   if (!gameStarted || lockBoard) return;
+  // don't allow more than the allotted hints
+  if (hintsUsed >= hintLimit) return;
+
+  // consume one hint
+  hintsUsed++;
+  updateHintButton();
+  if (hintsUsed >= hintLimit) {
+    hintBtn.disabled = true;
+  }
+
+  // show all cards briefly
   const cards = Array.from(document.querySelectorAll('.card'));
   cards.forEach(c => c.classList.add('flip'));
   lockBoard = true;
@@ -121,7 +134,7 @@ function updateHintButton() {
   hintBtn.textContent = `Hint (${hintLimit - hintsUsed})`;
 }
 
-// —— 게임 시작 ——
+// —— Start game ——
 async function startGame() {
   const lvl = difficultySelect.value;
   const { rows, cols, time } = levelConfig[lvl];
@@ -143,20 +156,20 @@ async function startGame() {
   overMsg.classList.add('hidden');
   startBtn.disabled = true;
   resetBtn.disabled = false;
-  // 난이도별 힌트 한도 설정
+  // Set hint limit based on difficulty
   hintLimit = levelConfig[lvl].hints;
   hintsUsed = 0;
   hintBtn.disabled = false;
 
   updateHintButton();
 
-  // 그리드 열 수 설정
+  // Set grid column count
   cardContainer.style.gridTemplateColumns = `repeat(${cols}, minmax(0,1fr))`;
 
-  // 카드 데이터 생성
+  // Generate card data
   await populateCards(pairsToWin);
 
-  // 클릭 이벤트 바인딩
+  // Bind click events
   document.querySelectorAll('.card').forEach(card =>
     card.addEventListener('click', handleCardClick)
   );
@@ -165,7 +178,7 @@ async function startGame() {
   startTimer();
 }
 
-// —— 게임 리셋 ——
+// —— Reset game ——
 function resetGame() {
   clearInterval(timerInterval);
   cardContainer.innerHTML = '';
@@ -173,7 +186,7 @@ function resetGame() {
   hintBtn.disabled  = true;
 }
 
-// —— 승리 / 게임오버 ——
+// —— Win / Game Over ——
 function endWin() {
   clearInterval(timerInterval);
   gameStarted = false;
@@ -185,14 +198,14 @@ function endGameOver() {
   overMsg.classList.remove('hidden');
 }
 
-// —— 시간 포맷 ——
+// —— Time formatting ——
 function formatTime(sec) {
   const m = String(Math.floor(sec / 60)).padStart(2, '0');
   const s = String(sec % 60).padStart(2, '0');
   return `${m}:${s}`;
 }
 
-// —— PokeAPI로 다중-fallback 카드 데이터 생성 ——
+// —— Generate card data with multiple fallbacks via PokeAPI ——
 async function populateCards(pairCount) {
   cardContainer.innerHTML = '';
   const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
@@ -249,6 +262,6 @@ async function populateCards(pairCount) {
   }
 }
 
-// —— 버튼 이벤트 바인딩 ——
+// —— Button event bindings ——
 startBtn.addEventListener('click', startGame);
 resetBtn.addEventListener('click', resetGame);
