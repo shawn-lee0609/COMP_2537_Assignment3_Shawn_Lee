@@ -254,6 +254,33 @@ button:hover, select:hover {
   animation: popup 1.2s forwards;
 }
 
+/* center “You Win” and “Game Over” as modals */
+#winMessage,
+#gameOver {
+  /* override the flow */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* styling */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 2rem 3rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px var(--shadow);
+  text-align: center;
+
+  /* ensure it sits on top */
+  z-index: 1000;
+  margin: 0;             /* cancel the old mt-8 */
+}
+
+/* keep them hidden until needed */
+.hidden {
+  display: none;
+}
+
 @keyframes popup {
   0%   { opacity: 0; transform: translate(-50%, -10px) scale(0.8); }
   20%  { opacity: 1; transform: translate(-50%,   0) scale(1); }
