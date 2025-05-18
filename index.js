@@ -28,7 +28,7 @@ setInterval(updateCurrentTime, 1000);
 
 // —— Difficulty settings ——
 const levelConfig = {
-  easy: { rows: 4, cols: 4, time: 20, hints: 3 },
+  easy: { rows: 4, cols: 4, time: 30, hints: 3 },
   medium: { rows: 6, cols: 6, time: 60, hints: 3 },
   hard: { rows: 8, cols: 8, time: 90, hints: 3 }
 };
@@ -143,6 +143,9 @@ hintBtn.addEventListener('click', () => {
   if (!gameStarted || lockBoard) return;
   // don't allow more than the allotted hints
   if (hintsUsed >= hintLimit) return;
+
+  // clear any partial selection so hint won't "remember" the first card
+  flippedCards = [];
 
   // consume one hint
   hintsUsed++;
