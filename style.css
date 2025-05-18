@@ -203,3 +203,27 @@ button:hover, select:hover {
 .hidden {
   display: none;
 }
+
+/* —— Power-up popup —— */
+.power-up-popup {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: var(--text-light);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px var(--shadow);
+  z-index: 1000;
+  opacity: 0;
+  animation: popup 1.2s forwards;
+}
+
+@keyframes popup {
+  0%   { opacity: 0; transform: translate(-50%, -10px) scale(0.8); }
+  20%  { opacity: 1; transform: translate(-50%,   0) scale(1); }
+  80%  { opacity: 1; transform: translate(-50%,   0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -10px) scale(0.8); }
+}
