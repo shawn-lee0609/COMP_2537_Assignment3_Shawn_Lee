@@ -28,9 +28,9 @@ setInterval(updateCurrentTime, 1000);
 
 // —— Difficulty settings ——
 const levelConfig = {
-  easy: { rows: 4, cols: 4, time: 30, hints: 3 },
-  medium: { rows: 6, cols: 6, time: 60, hints: 3 },
-  hard: { rows: 8, cols: 8, time: 90, hints: 3 }
+  easy: { rows: 2, cols: 4, time: 20, hints: 2 },
+  medium: { rows: 4, cols: 6, time: 40, hints: 2 },
+  hard: { rows: 6, cols: 8, time: 60, hints: 2 }
 };
 
 // —— Back-image mapping ——
