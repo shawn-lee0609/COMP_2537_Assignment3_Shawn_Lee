@@ -45,7 +45,40 @@ body {
 }
 
 /* — Force text color for controls, stats, headers, messages — */
-#stats,
+/* ── Stats bar container ── */
+#stats {
+  background-color: rgba(0, 0, 0, 0.2); 
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+}
+
+/* ── Stats pills: solid bg + accent border ── */
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--text-color);      
+  padding: 0.5rem 1rem;                     
+  border-radius: 1rem;                      
+  border: 2px solid var(--accent);          
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  
+  min-width: 6rem;                          
+}
+
+.stat-label {
+  color: var(--bg-color);   
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.stat-value {
+  color: var(--accent);     
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
 #controls,
 h1,
 .message {

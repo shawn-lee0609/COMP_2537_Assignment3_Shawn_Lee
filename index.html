@@ -1,9 +1,10 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Pokémon Memory Game</title>
 
   <!-- Tailwind CDN -->
@@ -21,14 +22,12 @@
   </script>
 
   <!-- Retro game-style font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 
   <!-- CSS for card flipping & themes -->
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body class="theme-classic font-game min-h-screen py-8">
 
   <div class="max-w-screen-xl mx-auto px-4">
@@ -37,11 +36,27 @@
     <h1 class="text-3xl md:text-4xl text-center mb-6">Pokémon Memory</h1>
 
     <!-- Stats -->
-    <div id="stats" class="flex flex-wrap justify-center gap-4 mb-6 text-lg">
-      <div>Time: <span id="time">00:00</span></div>
-      <div>Clicks: <span id="clickCount">0</span></div>
-      <div>Matched: <span id="pairsMatched">0</span></div>
-      <div>To Win: <span id="pairsToWin">3</span></div>
+    <div id="stats" class="flex flex-wrap justify-center items-center gap-4 mb-6">
+      <div class="stat-item">
+        <span class="stat-label">Now</span>
+        <span id="currentTime" class="stat-value">--:--:--</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Remaining</span>
+        <span id="time" class="stat-value">00:00</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Clicks</span>
+        <span id="clickCount" class="stat-value">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Matched</span>
+        <span id="pairsMatched" class="stat-value">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">To Win</span>
+        <span id="pairsToWin" class="stat-value">18</span>
+      </div>
     </div>
 
     <!-- Controls -->
@@ -88,4 +103,5 @@
 
   <script src="index.js"></script>
 </body>
+
 </html>

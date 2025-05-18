@@ -4,6 +4,7 @@
 let matchTimestamps = [];
 
 // —— DOM references ——
+const currentTimeDisplay = document.getElementById('currentTime');
 const difficultySelect = document.getElementById('difficultySelect');
 const themeSelect = document.getElementById('themeSelect');
 const startBtn = document.getElementById('startButton');
@@ -17,10 +18,18 @@ const cardContainer = document.querySelector('.card-container');
 const winMsg = document.getElementById('winMessage');
 const overMsg = document.getElementById('gameOver');
 
+function updateCurrentTime() {
+  const now = new Date();
+  currentTimeDisplay.textContent = now.toLocaleTimeString();
+}
+
+updateCurrentTime();
+setInterval(updateCurrentTime, 1000);
+
 // —— Difficulty settings ——
 const levelConfig = {
   easy: { rows: 4, cols: 4, time: 20, hints: 3 },
-  medium: { rows: 6, cols: 6, time: 60, hints: 2 },
+  medium: { rows: 6, cols: 6, time: 60, hints: 3 },
   hard: { rows: 8, cols: 8, time: 90, hints: 3 }
 };
 
